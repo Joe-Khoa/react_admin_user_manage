@@ -49,12 +49,19 @@ class App extends Component {
       item.permission = permission
       // console.log('item: ',item);
       var items = this.state.data
-      items.push(item)
-      this.setState({
-        data : items
-      })
-      console.log(this.state.data);
-      localStorage.setItem("dataUser",JSON.stringify(items))
+      if ( item.name != null ||  items.name != undefined){
+        items.push(item)
+        this.setState({
+          data : items
+        })
+        console.log(this.state.data);
+        localStorage.setItem("dataUser",JSON.stringify(items))
+        // item.name = null
+      }else{
+        return false
+      }
+
+
     }
 
   // to get searched text
@@ -108,12 +115,16 @@ class App extends Component {
     // console.log(localStorage.getItem('name'))
     // localStorage.removeItem("name")
     var SearchedDataArr = []
-    this.state.data.map( (value,key) =>{
+      
+      this.state.data.map( (value,key) =>{
         if( value.name.indexOf(this.state.searchedText) !== -1){
           SearchedDataArr.push(value)
         }
         return true
-    }) 
+      }) 
+
+
+
     // console.log(SearchedDataArr);
     return (
       <div>
